@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>D'SOARING EAGLES - TASUESS 2K25</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Readable, elegant fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ===== Reset & Base ===== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --hero-red: #b1001d;                /* ceremonial red */
+      --gold: #f5d26b;                    /* soft gold */
+      --gold-strong: #ffd75a;             /* brighter gold */
+      --ink: #1e1b1b;
+      --deep-pink: #c2185b;               /* requirement: deep, fine pink */
+      --soft-lilac: #f5f1ff;              /* emotional sections */
+      --mint: #f0fff0;                    /* appreciation */
+      --card-shadow: 0 20px 60px rgba(0,0,0,.25);
+    }
+
+    html, body { height: 100%; }
+    body {
+      font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: #fff;
+      color: #222;
+      overflow-x: hidden;
+    }
+
+    h1, .display { font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; }
+    h1 { letter-spacing: .06em; }
+
+    section { position: relative; padding: 64px 20px; }
+    p { font-size: 1.08rem; line-height: 1.75; max-width: 980px; margin: 14px auto; text-align: center; }
+    h2 { font-size: clamp(1.6rem, 2.5vw, 2.2rem); text-align: center; margin-bottom: 18px; }
+
+    /* ===== HERO (Solid color + animated sheen, no busy gradients) ===== */
+    .hero {
+      background: var(--hero-red);
+      color: #fff;
+      text-align: center;
+      padding-top: 86px;
+      padding-bottom: 48px;
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
+    /* subtle glitter dots */
+    .hero::after {
+      content: "";
+      position: absolute; inset: 0; pointer-events: none;
+      background-image: radial-gradient(rgba(255,255,255,.16) 1px, transparent 1px);
+      background-size: 8px 8px; opacity: .18; mix-blend-mode: screen;
+    }
+    /* animated sheen sweeping across */
+    .hero::before {
+      content: "";
+      position: absolute; inset: -20%; pointer-events: none;
+      background: linear-gradient(130deg,
+        transparent 35%, rgba(255,255,255,.10) 45%, rgba(255,255,255,.55) 50%, rgba(255,255,255,.10) 55%, transparent 65%);
+      transform: translateX(-120%);
+      animation: sheen 7s linear infinite;
+      filter: blur(1px);
+    }
+    @keyframes sheen { to { transform: translateX(120%); } }
+
+    .title-wrap { display: flex; align-items: center; justify-content: center; gap: clamp(10px, 2vw, 22px); }
+    .eagle { font-size: clamp(2rem, 4vw, 3rem); filter: drop-shadow(0 4px 10px rgba(0,0,0,.35)); animation: float 3.6s ease-in-out infinite; }
+    .eagle.right { animation-delay: 1.8s; }
+    @keyframes float { 0%,100%{ transform: translateY(0) } 50%{ transform: translateY(-6px) } }
+
+    .hero h1 {
+      font-size: clamp(2.2rem, 5.5vw, 4.4rem);
+      color: #fff;
+      text-shadow: 0 8px 30px rgba(0,0,0,.35);
+      white-space: pre-wrap;
+    }
+    .hero .sub { font-size: clamp(1.1rem, 2.3vw, 1.6rem); opacity: .95; margin: 8px 0 14px; }
+    .hero .greet { font-size: clamp(1rem, 2vw, 1.15rem); max-width: 1000px; opacity: .95; }
+
+    /* ===== Advanced Slider (fits portrait & landscape, PPT-like transitions) ===== */
+    .slider {
+      width: min(1000px, 92vw);
+      aspect-ratio: 16 / 9;
+      margin: 38px auto 0;
+      position: relative;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+      background: #000; /* letterbox for portrait */
+    }
+
+    .slide { position: absolute; inset: 0; opacity: 0; z-index: 0; display: grid; place-items: center; }
+    .slide.active { opacity: 1; z-index: 2; }
+    .slide .slide-media { width: 100%; height: 100%; object-fit: cover; }
+    .slide.portrait .slide-media { object-fit: contain; background: linear-gradient(180deg,#000,#0a0a0a); }
+
+    /* In/Out effects (PowerPoint vibes) */
+    .slide.fx-fade   { animation: fxFade 900ms ease both; }
+    .slide.fx-zoom   { animation: fxZoom 900ms ease both; }
+    .slide.fx-wipe-l { animation: fxWipeL 900ms ease both; }
+    .slide.fx-wipe-u { animation: fxWipeU 900ms ease both; }
+    .slide.fx-tilt   { animation: fxTilt 900ms ease both; }
+    .slide.out       { animation: fxOut 650ms ease both; }
+
+    @keyframes fxFade { from { opacity: 0 } to { opacity: 1 } }
+    @keyframes fxZoom { from { transform: scale(1.06); opacity: 0 } to { transform: scale(1); opacity: 1 } }
+    @keyframes fxWipeL{ from { clip-path: inset(0 0 0 100%); } to { clip-path: inset(0 0 0 0); } }
+    @keyframes fxWipeU{ from { clip-path: inset(100% 0 0 0); } to { clip-path: inset(0 0 0 0); } }
+    @keyframes fxTilt { from { transform: rotate(-1.5deg) scale(1.02); opacity: 0 } to { transform: rotate(0) scale(1); opacity: 1 } }
+    @keyframes fxOut  { to   { transform: scale(.98); opacity: 0 } }
+
+    /* ===== Headboy & Headgirl with animated frames ===== */
+    .profile-wrap { display: grid; place-items: center; gap: 18px; }
+    .frame {
+      --frame-c1: #ff922e; --frame-c2: #ff5d2e; /* default warm (headboy) */
+      width: 210px; height: 210px; border-radius: 24px; padding: 6px;
+      background: conic-gradient(from 0deg, var(--frame-c1), var(--frame-c2), var(--frame-c1));
+      animation: frameSpin 6s linear infinite;
+      box-shadow: 0 12px 28px rgba(0,0,0,.25);
+    }
+    .frame > img { width: 100%; height: 100%; border-radius: 18px; display: block; object-fit: cover; }
+    @keyframes frameSpin { to { filter: hue-rotate(360deg); } }
+
+    .frame.pink { --frame-c1: #c2185b; --frame-c2: #8a1140; }   /* headgirl deep pink */
+
+    .section-headboy { background: #fff6e5; }
+    .section-headgirl{ background: #ffe3f0; }
+
+    /* ===== Emotional Sections (same bg color) ===== */
+    .emotional { 
+      /* Elevated, attractive multi-layer gradient with gentle motion */
+      background:
+        radial-gradient(1200px 600px at 12% -10%, rgba(255, 214, 165, .65), transparent 42%),
+        radial-gradient(900px 500px at 88% 110%, rgba(173, 216, 255, .55), transparent 45%),
+        linear-gradient(135deg, #ffecd2 0%, #fcb69f 30%, #eadcff 65%, #c9e7ff 100%);
+      animation: emoShift 16s ease-in-out infinite alternate;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* soft sparkle overlay */
+    .emotional::before {
+      content: "";
+      position: absolute; inset: 0; pointer-events: none;
+      background-image: radial-gradient(rgba(255,255,255,.35) 1px, transparent 1px);
+      background-size: 12px 12px; opacity: .28; mix-blend-mode: soft-light;
+      animation: shimmer 10s linear infinite;
+    }
+
+    @keyframes emoShift {
+      0%   { background-position: 0% 0%, 100% 100%, 0% 0%; }
+      50%  { background-position: 10% 5%, 90% 95%, 50% 50%; }
+      100% { background-position: 0% 0%, 100% 100%, 100% 100%; }
+    }
+
+    @keyframes shimmer {
+      from { filter: hue-rotate(0deg);   opacity: .28; }
+      50%  { filter: hue-rotate(12deg);  opacity: .34; }
+      to   { filter: hue-rotate(0deg);   opacity: .28; }
+    }
+    .emotional img { max-width: 440px; width: 92vw; border-radius: 14px; margin: 16px auto; display: block; box-shadow: 0 12px 30px rgba(0,0,0,.18); }
+
+    /* ===== Appreciation ===== */
+    .appreciation { background: var(--mint); }
+
+    /* ===== Countdown (extra important section) ===== */
+    .countdown { background: #f7fbff; }
+    .timer { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; margin-top: 10px; }
+    .tile { min-width: 110px; padding: 16px 18px; border-radius: 16px; background: #fff; box-shadow: 0 10px 28px rgba(0,0,0,.12); text-align: center; }
+    .tile .num { font-size: clamp(1.6rem, 4.2vw, 2.4rem); font-weight: 700; }
+    .tile .lbl { font-size: .85rem; opacity: .7; letter-spacing: .06em; }
+
+    /* ===== Footer (profile left, text right on wide screens) ===== */
+    footer { background: #111; color: #eee; position: relative; }
+    .footer-grid { width: min(1100px, 94vw); margin: 0 auto; display: grid; gap: 22px; align-items: center; grid-template-columns: 1fr; padding: 42px 0; }
+    .footer-left { display: flex; align-items: center; gap: 16px; justify-content: center; }
+    .dp { width: 86px; height: 86px; border-radius: 50%; border: 3px solid #444; object-fit: cover; cursor: pointer; box-shadow: 0 10px 24px rgba(0,0,0,.35); }
+    .btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn { display: inline-block; padding: 12px 22px; border-radius: 28px; text-decoration: none; color: #fff; background: linear-gradient(90deg, #e60073, #b30059); }
+    .btn:hover { filter: brightness(1.05); }
+
+    @media (min-width: 820px) {
+      .footer-grid { grid-template-columns: auto 1fr; }
+      .footer-left { justify-content: flex-start; }
+      .btns { justify-content: flex-start; }
+    }
+
+    /* ===== Lightbox for profile photo ===== */
+    .lightbox { position: fixed; inset: 0; background: rgba(0,0,0,.85); display: none; align-items: center; justify-content: center; z-index: 999; }
+    .lightbox img { max-width: 92vw; max-height: 92vh; border-radius: 10px; box-shadow: 0 20px 60px rgba(0,0,0,.6); }
+
+    /* ===== Snowflakes (canvas) + Falling emojis ===== */
+    canvas.snow { position: fixed; inset: 0; pointer-events: none; z-index: 1; }
+    .emoji { position: fixed; top: -50px; font-size: 1.8rem; z-index: 2; animation: fall linear forwards; }
+    @keyframes fall { to { transform: translateY(110vh); opacity: 0; } }
+  </style>
+</head>
+<body>
+
+  <!-- Snow layer (behind content, above hero sheen) -->
+  <canvas class="snow" id="snow"></canvas>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="title-wrap">
+      <span class="eagle">🦅</span>
+      <h1 class="display">D'SOARING EAGLES</h1>
+      <span class="eagle right">🦅</span>
+    </div>
+    <div class="sub">TASUESS 2K25 🔥</div>
+    <p class="greet">To every member of the set: we came as strangers, we grew as friends, and we rise as family. Today isn’t goodbye—it's the beginning of a thousand new flights. God guide our steps and keep our hearts one. 💫</p>
+
+    <!-- Advanced Slider -->
+    <div class="slider" id="slider">
+      <!-- 1 Flyer (portrait expected) -->
+      <figure class="slide active" data-title="Flyer (Portrait)">
+        <img class="slide-media" src="fullset.jpeg" alt="Flyer" />
+      </figure>
+      <!-- 2 Set (landscape expected) -->
+      <figure class="slide" data-title="Set Photo (Landscape)">
+        <img class="slide-media" src="smallset.jpg" alt="Set Picture" />
+      </figure>
+      <!-- 3 Video -->
+      <figure class="slide" data-title="Video 1">
+        <video class="slide-media" src="head.mp4" muted preload="metadata"></video>
+      </figure>
+      <!-- 4 Image -->
+      <figure class="slide" data-title="Memory 1">
+        <img class="slide-media" src="prefects.jpg" alt="Memory 1" />
+      </figure>
+      <!-- 5 Image -->
+      <figure class="slide" data-title="Memory 2">
+        <img class="slide-media" src="flyer.jpg" alt="Memory 2" />
+      </figure>
+      <!-- 6 Video -->
+      <figure class="slide" data-title="Video 2">
+        <video class="slide-media" src="generalset.mp4" muted preload="metadata"></video>
+      </figure>
+      <!-- 7 Image -->
+      <figure class="slide" data-title="Memory 3">
+        <img class="slide-media" src="pic3.jpg" alt="Memory 3" />
+      </figure>
+    </div>
+  </section>
+
+  <!-- ===== HEADBOY ===== -->
+  <section class="section-headboy">
+    <h2>Headboy’s Message — <strong>Adekunmisi Ademola</strong></h2>
+    <div class="profile-wrap">
+      <div class="frame">
+        <img src="headboy.jpg" alt="Adekunmisi Ademola" />
+      </div>
+      <p><em>We are <b>D’ Soaring Eagles</b> — a family that laughed together, braved the storms together, and rose above every obstacle with unshakable joy.
+In every challenge, we found strength; in every setback, we found a reason to smile.
+Our unity gave us power, our happiness gave us light, and our dreams gave us wings.
+TASUESS was not just a school, but the ground that prepared us for the skies.
+Now, as we spread our wings, we rise with pride, with steeze, and with gratitude.
+We are the Eagles who will never settle for less — because we were born to soar.</em></p>
+    </div>
+  </section>
+
+  <!-- ===== HEADGIRL ===== -->
+  <section class="section-headgirl">
+    <h2>Headgirl’s Message — <strong>Ijaduola Oluwatominsin</strong></h2>
+    <div class="profile-wrap">
+      <div class="frame pink">
+        <img src="headgirl.jpeg" alt="Ijaduola Oluwatominsin" />
+      </div>
+      <p><em>WE are the Soaring Eagles of TASUESS, a set destined for greatness.
+        Brilliant and intelligent in our own unique ways, we dared to shine.
+        The school never imagined we would come this far, byt here we stand. Through discipline, courage and unity, we turned challenges into triumphs.
+      Our teachers molded us, our parents strengthened us, our dreams sustained us.
+      Now the sky opens wide, for eagles are born to soar above the storms.
+      TASUESS will forever remain the nest that shaped our wings. We are <b>D' Soaring Eagles</b> - and the world shall feel our flight.</em></p>
+    </div>
+  </section>
+
+  <!-- ===== EMOTIONAL SECTION 1 ===== -->
+  <section class="emotional">
+    <img src="signoutboys.png" alt="Memories" />
+    <p>“It's hard to go different ways after six years of laughter, late nights, and little victories. May God steer our paths safely and reunite us in bigger testimonies.”</p>
+  </section>
+
+  <!-- ===== EMOTIONAL SECTION 2 (same bg) ===== -->
+  <section class="emotional">
+    <img src="signout.png" alt="Friendship" />
+    <p>“No matter the distance, our bond remains a flame. We are TASUESS 2K25 — one family, one legacy, one loud Amen.”</p>
+  </section>
+
+<!-- COUNTDOWN SECTION -->
+<section id="countdown-section">
+  <h2>🎓 Valedictory Service Countdown 🎓</h2>
+  <div id="countdown"></div>
+  <canvas id="fireworks"></canvas>
+</section>
+
+<style>
+  #countdown-section {
+    text-align: center;
+    padding: 60px 20px;
+    background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+    color: #222;
+    position: relative;
+    overflow: hidden;
+  }
+
+  #countdown {
+    font-size: 2rem;
+    margin-top: 20px;
+    font-weight: bold;
+  }
+
+  /* Fireworks canvas */
+  #fireworks {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  #permission-box {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+    #permission-box div {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      text-align: center;
+      font-family: Arial, sans-serif;
+    }
+    #permission-box button {
+      padding: 10px 20px;
+      margin-top: 15px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #ff69b4;
+      border: none;
+      color: white;
+      border-radius: 8px;
+    }
+</style>
+
+<script>
+  // Set event date
+  const eventDate = new Date("Aug 26, 2025 09:00:00").getTime();
+  const countdown = document.getElementById("countdown");
+  const fireworksCanvas = document.getElementById("fireworks");
+  const ctx = fireworksCanvas.getContext("2d");
+
+  // Resize fireworks canvas
+  function resizeCanvas() {
+    fireworksCanvas.width = window.innerWidth;
+    fireworksCanvas.height = window.innerHeight;
+  }
+  window.addEventListener("resize", resizeCanvas);
+  resizeCanvas();
+
+  // Countdown timer
+  const timer = setInterval(() => {
+    const now = new Date().getTime();
+    const distance = eventDate - now;
+
+    if (distance > 0) {
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      countdown.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    } else {
+      clearInterval(timer);
+      countdown.innerHTML = "🎉 The Valedictory Service has started! Congratulations, Class of 2025! 🦅";
+      launchFireworks();
+    }
+  }, 1000);
+
+  // ---------------- FIREWORKS ----------------
+  let particles = [];
+
+  function launchFireworks() {
+    setInterval(() => {
+      const x = Math.random() * fireworksCanvas.width;
+      const y = Math.random() * fireworksCanvas.height / 2;
+      const count = 100;
+
+      for (let i = 0; i < count; i++) {
+        particles.push({
+          x,
+          y,
+          angle: (Math.PI * 2 * i) / count,
+          speed: Math.random() * 5 + 2,
+          radius: 2,
+          life: 100,
+          color: `hsl(${Math.random() * 360}, 100%, 60%)`
+        });
+      }
+    }, 800);
+
+    animateFireworks();
+  }
+
+  function animateFireworks() {
+    ctx.clearRect(0, 0, fireworksCanvas.width, fireworksCanvas.height);
+
+    particles.forEach((p, i) => {
+      const dx = Math.cos(p.angle) * p.speed;
+      const dy = Math.sin(p.angle) * p.speed;
+
+      p.x += dx;
+      p.y += dy;
+      p.life--;
+
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+      ctx.fillStyle = p.color;
+      ctx.fill();
+
+      if (p.life <= 0) {
+        particles.splice(i, 1);
+      }
+    });
+
+    requestAnimationFrame(animateFireworks);
+  }
+</script>
+
+  <!-- ===== APPRECIATION ===== -->
+  <section class="appreciation">
+    <h2>A Tribute of Gratitude</h2>
+    <p>To our teachers and to TASUESS: thank you for sowing discipline, courage, and faith in us. Your lessons became our wings. We carry your impact into every room we enter. God bless you richly. 🙏</p>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-left">
+        <img class="dp" src="me.jpg" alt="Ayootun Onakoya" id="dp" />
+        <div>
+          <div style="font-weight:600; font-size:1.05rem">Made with ❤️ by Ayootun Onakoya — TASUESS 2K25</div>
+          <div style="opacity:.75; font-size:.95rem">Proudly part of the set. May our paths keep shining like gold.</div>
+        </div>
+      </div>
+      <div class="btns">
+        <a class="btn" href="https://wa.me/2348169378718?text=HI,%20is%20this%20AYOOTUN%20ONAKOYA?" target="_blank" rel="noopener">Contact</a>
+        <a class="btn" href="https://docs.google.com/document/d/1FZYN5ztfEljfMRN2kOLT1tS5XuOP7d-l5iUlEinePng/edit?usp=sharing" target="_blank" rel="noopener">Buy Me a Coffee</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" onclick="this.style.display='none'">
+    <img id="lightbox-img" src="" alt="Preview" />
+  </div>
+
+  <script>
+    /* ===== PPT-like Slider Engine ===== */
+    (function(){
+      const slides = Array.from(document.querySelectorAll('.slide'));
+      let i = 0, busy = false;
+      const effects = ['fx-fade','fx-zoom','fx-wipe-l','fx-wipe-u','fx-tilt'];
+
+      // auto-detect portrait vs landscape for proper fit
+      function markOrientation(el){
+        const media = el.querySelector('.slide-media');
+        if(!media) return;
+        const set = (w,h)=>{
+          el.classList.toggle('portrait', h > w);
+          el.classList.toggle('landscape', w >= h);
+        };
+        if(media.tagName === 'IMG'){
+          if(media.complete) set(media.naturalWidth, media.naturalHeight);
+          else media.addEventListener('load', ()=> set(media.naturalWidth, media.naturalHeight));
+        } else if(media.tagName === 'VIDEO'){
+          media.addEventListener('loadedmetadata', ()=> set(media.videoWidth, media.videoHeight));
+        }
+      }
+      slides.forEach(markOrientation);
+
+      function playIfVideo(sl){ const v = sl.querySelector('video'); if(v){ v.currentTime = 0; v.play().catch(()=>{}); } }
+      function pauseIfVideo(sl){ const v = sl.querySelector('video'); if(v){ v.pause(); } }
+
+      function go(next){
+        if(busy || next === i) return; busy = true;
+        const cur = slides[i];
+        const nx  = slides[next];
+        pauseIfVideo(cur);
+        cur.classList.remove('active');
+        cur.classList.add('out');
+        nx.classList.add('active');
+        const fx = effects[Math.floor(Math.random()*effects.length)];
+        nx.classList.remove('fx-fade','fx-zoom','fx-wipe-l','fx-wipe-u','fx-tilt');
+        void nx.offsetWidth; // reflow to restart animation
+        nx.classList.add(fx);
+        playIfVideo(nx);
+        setTimeout(()=>{ cur.classList.remove('out'); busy = false; }, 680);
+        i = next;
+      }
+
+      // Change every 1 second as requested
+      setInterval(()=>{ go((i + 1) % slides.length); }, 1000);
+    })();
+
+    /* ===== Snow Canvas ===== */
+    (function(){
+      const canvas = document.getElementById('snow');
+      const ctx = canvas.getContext('2d');
+      let W, H, flakes = [];
+      function resize(){ W = canvas.width  = innerWidth; H = canvas.height = innerHeight; }
+      addEventListener('resize', resize); resize();
+      function makeFlake(){
+        return { x: Math.random()*W, y: -10, r: Math.random()*2 + 1, s: Math.random()*0.6 + 0.4, w: Math.random()*1.5 - 0.75 };
+      }
+      for(let k=0;k<140;k++) flakes.push(makeFlake());
+      function tick(){
+        ctx.clearRect(0,0,W,H);
+        ctx.fillStyle = 'rgba(255,255,255,.9)';
+        flakes.forEach(f=>{
+          f.y += f.s; f.x += f.w; if(f.y>H+8) { f.y=-10; f.x=Math.random()*W; }
+          ctx.beginPath(); ctx.arc(f.x,f.y,f.r,0,Math.PI*2); ctx.fill();
+        });
+        requestAnimationFrame(tick);
+      }
+      tick();
+    })();
+
+    /* ===== Falling Emojis ===== */
+    (function(){
+      const emojis = ['🎓','🔥','🎉','🎂','🎁'];
+      function dropEmoji(){
+        const e = document.createElement('div');
+        e.className = 'emoji';
+        e.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+        e.style.left = Math.random()*100 + 'vw';
+        e.style.animationDuration = (3 + Math.random()*4) + 's';
+        document.body.appendChild(e);
+        setTimeout(()=> e.remove(), 8000);
+      }
+      setInterval(dropEmoji, 650); // plentiful, but not too heavy
+    })();
+
+    /* ===== Lightbox for profile DP ===== */
+    (function(){
+      const dp = document.getElementById('dp');
+      const lb = document.getElementById('lightbox');
+      const img= document.getElementById('lightbox-img');
+      if(dp){ dp.addEventListener('click', ()=>{ img.src = dp.src; lb.style.display = 'flex'; }); }
+    })();
+
+    /* ===== Countdown (set your exact event date & time here) ===== */
+    (function(){
+      // If your valedictory time differs, adjust below (YYYY-MM-DDTHH:MM:SS)
+      const target = new Date('2025-08-26T00:00:00');
+      const dEl = document.getElementById('d'), hEl = document.getElementById('h'), mEl = document.getElementById('m'), sEl = document.getElementById('s');
+      function tick(){
+        const now = new Date();
+        let diff = Math.max(0, target - now);
+        const d = Math.floor(diff / (1000*60*60*24)); diff -= d*(1000*60*60*24);
+        const h = Math.floor(diff / (1000*60*60)); diff -= h*(1000*60*60);
+        const m = Math.floor(diff / (1000*60)); diff -= m*(1000*60);
+        const s = Math.floor(diff / 1000);
+        dEl.textContent = d; hEl.textContent = h; mEl.textContent = m; sEl.textContent = s;
+      }
+      tick(); setInterval(tick, 1000);
+    })();
+  </script>
+
+  <!-- AUDIO TAG: make sure birthday.mp3 is in the same folder as this HTML file -->
+<audio id="graduation-audio" src="ordinary.mp3"></audio>
+
+<!-- PERMISSION BOX -->
+<div id="permission-box">
+  <div>
+    <h2>🎉 Allow the emotional song to play?</h2>
+    <button id="allow-btn">Allow</button>
+  </div>
+</div>
+
+<script>
+  // Wait until the page is fully loaded
+  window.addEventListener("DOMContentLoaded", function () {
+    const allowButton = document.getElementById("allow-btn");
+    const audio = document.getElementById("graduation-audio");
+    const popup = document.getElementById("permission-box");
+
+    allowButton.addEventListener("click", function () {
+      audio.play().then(() => {
+        popup.style.display = "none";
+      }).catch(error => {
+        alert("Couldn't play the graduation audio. Check console.");
+        console.error(error);
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
